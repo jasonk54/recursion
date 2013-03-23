@@ -3,57 +3,61 @@ var stringifyJSON = function(value) {
 	var stringify = function(value) {
 		//Base cases
 		if (typeof(value) === "string") {
-			var tempValue = '"';
-			if ((value.indexOf('"') !== -1 ) || (value.indexOf('\\') !== -1 )) {
-				tempValue += escapeQuotes(value);
-			} else {
-				tempValue += value;
-			}
-			tempValue += '"';
-			return tempValue;
-		} else if (typeof(value) === "number") {
-			return value.toString();
-		} else if (typeof(value) === "boolean") {
-				return value.toString();
-		} else if (Object.prototype.toString.call(value) === '[object Array]') {
-			var returnString = "[";
+			var tempValue = '';
+			tempValue += escapeString(value);
+			return '"' + tempValue + '"';
+		} else if (isArray(value)) {
+			var returnString = '';
 			for (var i = 0; i < value.length; i++) {
-				returnString += stringify(value[i]);  // add recursion here for array elements of type object
-				if (i < value.length - 1) {						// add comma
+				returnString += stringify(value[i]);
+				if (i < value.length - 1) {
 					returnString += ",";
 				}
 			}
-			returnString += "]";
-			return returnString;
-		} else if (Object.prototype.toString.call(value) === '[object Object]') {
-			// debugger;
-			var objProperties = [];
-			var returnString = "{";
-			// objProperties = Object.getOwnPropertyNames(value);
-			for (key in value) {
-				objProperties.push(key);
-			}
-			for (var i = 0; i < objProperties.length; i++) {
-				returnString += '"' + objProperties[i] + '":';
-				if (value[objProperties[i]] === "") {
-					returnString += '""';
-				} else {
-					returnString += stringify(value[objProperties[i]]);
+			return '[' + returnString + ']';
+		} else if (isObject(value)) {
+			var returnString = '';
+				var objProperties = [];
+				for (key in value) {
+					objProperties.push(key);
 				}
-				if (i < objProperties.length - 1) {			// add comma
-				returnString += ",";
+				for (var i = 0; i < objProperties.length; i++) {
+					if (!isFunction(value[objProperties[i]]) && !isUndefined(value[objProperties[i]])) {
+						returnString += '"' + objProperties[i] + '":';
+						if (value[objProperties[i]] === "") {
+							returnString += '""';
+						} else {
+							returnString += stringify(value[objProperties[i]]);
+						}
+						if (i < objProperties.length - 1) {
+						returnString += ",";
+						}
+					}
 				}
-			}
-			returnString += "}";
-			return returnString;
+			return '{' + returnString + '}';
 		}
-		return value;
+		return value + '';
 	};
 
-	var escapeQuotes = function(string) {
-		string = string.split('\\').join('\\\\');
-		string = string.split('"').join('\\"');
+	var escapeString = function(string) {
+		if ((string.indexOf('"') !== -1 ) || (string.indexOf('\\') !== -1 )) {
+			string = string.split('\\').join('\\\\');
+			string = string.split('"').join('\\"');
+		}
 		return string;
 	};
+	var isArray = function(value) {
+		return Object.prototype.toString.call(value) === '[object Array]';
+	};
+	var isObject = function(value) {
+		return Object.prototype.toString.call(value) === '[object Object]';
+	};
+	var isFunction = function(value) {
+		return Object.prototype.toString.call(value) === '[object Function]';
+	};
+	var isUndefined = function(value) {
+		return Object.prototype.toString.call(value) === '[object Undefined]';
+	}
+
 	return stringify(value);
 };

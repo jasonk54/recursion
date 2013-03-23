@@ -9,7 +9,7 @@ weirdObjects = [
 ];
 
 validStrings = [
-  basic stuff
+  // basic stuff
   '[]',
   '{"foo": ""}',
   '{}',
