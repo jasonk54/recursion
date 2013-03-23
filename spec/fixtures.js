@@ -2,14 +2,14 @@ var validStrings, invalidStrings, // used for stringifyJSON and parseJSON specs
   weirdObjects; // used for stringifyJSON spec
 
 weirdObjects = [
-  { 
+  {
     "functions": function(){},
     "undefined": undefined
   }
 ];
 
 validStrings = [
-  // basic stuff
+  basic stuff
   '[]',
   '{"foo": ""}',
   '{}',
@@ -20,22 +20,22 @@ validStrings = [
   '{"foo": true, "bar": false, "baz": null}',
   '[1, 0, -1, -0.3, 0.3, 1343.32, 3345, 0.00011999999999999999]',
   '{"boolean, true": true, "boolean, false": false, "null": null }',
-  
+
   // basic nesting
   '{"a":{"b":"c"}}',
   '{"a":["b", "c"]}',
   '[{"a":"b"}, {"c":"d"}]',
   '{"a":[],"c": {}, "b": true}',
   '[[[["foo"]]]]',
-  
+
   // escaping
   '["\\\\\\"\\"a\\""]',
   '["and you can\'t escape thi\s"]',
-  
+
   // everything all at once
   '{"CoreletAPIVersion":2,"CoreletType":"standalone",' +
     '"documentation":"A corelet that provides the capability to upload' +
-    ' a folderâ€™s contents into a userâ€™s locker.","functions":[' + 
+    ' a folderâ€™s contents into a userâ€™s locker.","functions":[' +
     '{"documentation":"Displays a dialog box that allows user to ' +
     'select a folder on the local system.","name":' +
     '"ShowBrowseDialog","parameters":[{"documentation":"The ' +
@@ -62,10 +62,10 @@ validStrings = [
     '"name":"LockerUploader","version":{"major":0,' +
     '"micro":1,"minor":0},"versionString":"0.0.1"}',
   '{ "firstName": "John", "lastName" : "Smith", "age" : ' +
-    '25, "address" : { "streetAddress": "21 2nd Street", ' + 
+    '25, "address" : { "streetAddress": "21 2nd Street", ' +
     '"city" : "New York", "state" : "NY", "postalCode" : ' +
-    ' "10021" }, "phoneNumber": [ { "type" : "home", ' + 
-    '"number": "212 555-1234" }, { "type" : "fax", ' + 
+    ' "10021" }, "phoneNumber": [ { "type" : "home", ' +
+    '"number": "212 555-1234" }, { "type" : "fax", ' +
     '"number": "646 555-4567" } ] }',
   '{\r\n' +
     '          "glossary": {\n' +
@@ -76,7 +76,7 @@ validStrings = [
     '                      "GlossEntry": {\r\n' +
     '                          "ID": "SGML",\r\n' +
     '      \t\t\t\t\t"SortAs": "SGML",\r\n' +
-    '      \t\t\t\t\t"GlossTerm": "Standard Generalized ' + 
+    '      \t\t\t\t\t"GlossTerm": "Standard Generalized ' +
     'Markup Language",\r\n' +
     '      \t\t\t\t\t"Acronym": "SGML",\r\n' +
     '      \t\t\t\t\t"Abbrev": "ISO 8879:1986",\r\n' +
